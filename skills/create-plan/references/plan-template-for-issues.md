@@ -1,23 +1,30 @@
 # Plan Template For Issues
 
-複数 Issue の「計画作成プロンプト集」を1ファイルにまとめるためのテンプレート。
+複数 Issue の計画作成を 1 ファイルにまとめるためのテンプレート。
+`manual`（プロンプト集として利用）と `auto`（同一セッションで直接生成）の両方に対応する。
 
 ## 目的
 
 - 直列/並列の実行順序を先に明示する
-- 各 Issue の計画作成プロンプトを同じ構造で並べる
+- 各 Issue の計画作成指示を同じ構造で並べる
 - 計画フェーズ（未実装）であることを全体に徹底する
 
 ## 出力フォーマット
 
 ````markdown
-# {プロジェクト名} — Phase 2 Plan Prompt Pack
+# {プロジェクト名} — Phase 2 Plan Pack
 
 ## この文書の前提
 
 - この文書は計画作成専用（未実装）
-- 各 Issue の `docs/plans/{name}/issues/*.md` を作るための実行プロンプト集
+- 各 Issue の `docs/plans/{name}/issues/*.md` を作るための指示をまとめる
 - 実装は次フェーズで `/impl-single` または `/impl-multi` を使って行う
+
+## 実行モード
+
+- mode: `{manual|auto}`
+- manual: 下記 `text` ブロックを新規セッションに投入して使う
+- auto: 下記 `text` ブロックの内容をこのセッションで順に実行し、個別計画書まで作成する
 
 ## 実行順序（Wave）
 
@@ -41,13 +48,13 @@ Wave 3: #16
 ### Issue #12 {Issueタイトル}
 
 ```text
-{Issue #12 向けプロンプト本文}
+{Issue #12 向け計画作成指示}
 ```
 
 ### Issue #13 {Issueタイトル}
 
 ```text
-{Issue #13 向けプロンプト本文}
+{Issue #13 向け計画作成指示}
 ```
 
 ---
@@ -57,13 +64,13 @@ Wave 3: #16
 ### Issue #14 {Issueタイトル}
 
 ```text
-{Issue #14 向けプロンプト本文}
+{Issue #14 向け計画作成指示}
 ```
 
 ### Issue #15 {Issueタイトル}
 
 ```text
-{Issue #15 向けプロンプト本文}
+{Issue #15 向け計画作成指示}
 ```
 
 ---
@@ -73,7 +80,7 @@ Wave 3: #16
 ### Issue #16 {Issueタイトル}
 
 ```text
-{Issue #16 向けプロンプト本文}
+{Issue #16 向け計画作成指示}
 ```
 
 ---
@@ -96,6 +103,6 @@ Wave 3: #16
 
 ## 記述ルール
 
-- 各 Issue プロンプトは [plan-template-for-an-issue.md](plan-template-for-an-issue.md) 準拠
+- 各 Issue 指示は [plan-template-for-an-issue.md](plan-template-for-an-issue.md) 準拠
 - 実装指示（コード変更・PR作成）は含めない
 - ユーザーが注釈レビューしやすいよう、見出し構造を固定する
