@@ -260,12 +260,12 @@ Issue #1 の DoD をそのまま記載:
 
 ### 実装フェーズ（次フェーズで実施）
 
-- [ ] `skills/tidy-up/references/report-template.md` を作成する
-- [ ] `skills/tidy-up/SKILL.md` を作成する（ワークフロー全ステップ記述）
-- [ ] プロジェクト種別判定ロジックを設計し `SKILL.md` に記述する
+- [x] `skills/tidy-up/references/report-template.md` を作成する
+- [x] `skills/tidy-up/SKILL.md` を作成する（ワークフロー全ステップ記述）
+- [x] プロジェクト種別判定ロジックを設計し `SKILL.md` に記述する
 - [ ] `./gradlew test` 実行のコマンドとオプションを実際のプロジェクトで確認する
-- [ ] 整合性評価モードの確認観点リストを `report-template.md` に定義する
-- [ ] `.claude/skills/tidy-up/` に同期する
+- [x] 整合性評価モードの確認観点リストを `report-template.md` に定義する
+- [x] `.claude/skills/tidy-up/` に同期する
 - [ ] 動作確認: `/tidy-up` コマンドで呼び出せることを確認する
 - [ ] 動作確認: Issue 番号の自動抽出が動作することを確認する
 - [ ] 動作確認: plan ファイル未指定時にユーザーへの確認が行われることを確認する
