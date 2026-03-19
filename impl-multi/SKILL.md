@@ -56,6 +56,15 @@ git gtr new feature/child-branch  # → developベースになる！
 
 ## Parallel Development Workflow
 
+### Step 0: 各セッション開始前のコンテキスト確認
+
+実装開始前にコンテキストウィンドウ使用率を確認する。
+50%以上なら、実装に入る前に必ず次の趣旨で compact を促す。
+
+```text
+コンテキストウィンドウ使用率が50%以上です。作業を安定して継続するため、先に compact を実行してください。
+```
+
 ### Single Feature with Claude Code
 
 ```bash
@@ -192,6 +201,13 @@ git gtr new feature/child --from-current
 3. **Use hooks** - Automate dependency installation
 4. **Clean up regularly** - `git gtr rm` when PRs merge
 5. **Use `git gtr list`** - Track active worktrees
+6. **Run to completion** - Continue until all tasks/phases are done without stopping midway
+7. **Update plan ToDo** - If a plan file has checkbox ToDo items, check off completed items as progress is made
+
+## 実行ルール（重要）
+
+- すべてのタスクとフェーズが完了するまで途中で止まらず作業を進める
+- 進捗が分かるよう、plan ファイルのToDoチェックボックスは完了時に都度更新する
 
 ## Troubleshooting
 

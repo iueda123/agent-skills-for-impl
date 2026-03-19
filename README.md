@@ -10,8 +10,11 @@ Issue 起票 → Issue の追記・修正 → 並列開発計画 → git worktre
 | --- | --- | --- |
 | [create-issue](./create-issue/) | `/create-issue` | 雑な要件から GitHub Issue を構造化して起票 |
 | [refine-issue](./refine-issue/) | `/refine-issue` | 既存 Issue を Markdown に書き出し、Claude が対話で編集支援した後に GitHub へ反映 |
+| [refine-issue-with-research](./refine-issue-with-research/) | `/refine-issue-with-research` | 既存 Issue を Markdown に書き出し、コードベース調査結果に基づいて目的・要件・現状・選択肢・方針を再構成して反映 |
 | [create-plan](./create-plan/) | `/create-plan` | 単体 Issue でも複数 Issue でも使える。依存関係を分析し、Wave 構造の並列開発プロンプトを生成（例: `/create-plan #5` `/create-plan #3-10`） |
+| [refine-plan](./refine-plan/) | `/refine-plan` | create-plan で生成した plan ファイルを対話しながら改善 |
 | [impl-multi](./impl-multi/) | `/impl-multi` | git worktree で隔離環境を作り並列開発 |
+| [impl-single](./impl-single/) | `/impl-single` | 単一ツリーで1タスクずつ丁寧に実装を進める |
 | [pull-request](./pull-request/) | `/pull-request` | 変更内容を分析して PR を自動作成 |
 
 ## ワークフロー

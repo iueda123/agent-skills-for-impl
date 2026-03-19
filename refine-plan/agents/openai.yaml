@@ -1,0 +1,3 @@
+interface:
+  display_name: "Refine Plan"
+  short_description: "Improve create-plan output via dialogue"
