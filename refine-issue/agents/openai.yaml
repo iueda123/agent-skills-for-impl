@@ -1,0 +1,3 @@
+interface:
+  display_name: "Issue Refine"
+  short_description: "Edit existing GitHub Issues via local Markdown"
