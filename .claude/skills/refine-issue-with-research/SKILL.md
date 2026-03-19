@@ -36,7 +36,7 @@ python3 scripts/issue_refine.py list
 python3 scripts/issue_refine.py local 123
 ```
 
-`gh-issues/{number}/*.md` が存在する場合は、必ず次の趣旨で確認する。
+`docs/gh-issues/{number}/*.md` が存在する場合は、必ず次の趣旨で確認する。
 
 ```text
 この Issue のローカル Markdown が残っています。ローカルの Markdown を元に修正を続けますか？
@@ -58,7 +58,7 @@ GitHub から再取得して既存 Markdown を更新する場合は `--overwrit
 python3 scripts/issue_refine.py fetch 123 --overwrite
 ```
 
-出力先は `gh-issues/{number}/{slug}.md`。
+出力先は `docs/gh-issues/{number}/{slug}.md`。
 ファイルは YAML frontmatter に `number` と `title` を持ち、frontmatter の後ろ全体が Issue 本文になる。
 
 ### Step 3: コードベースを徹底調査する
@@ -132,7 +132,7 @@ GitHub に反映しましょうか？
 ユーザーが反映を希望したら、ローカル Markdown から title/body を読み取り、Issue を更新する。
 
 ```bash
-python3 scripts/issue_refine.py push gh-issues/123/example.md
+python3 scripts/issue_refine.py push docs/gh-issues/123/example.md
 ```
 
 `gh issue edit <number> --title ... --body-file ...` を使って反映する。
@@ -143,7 +143,7 @@ python3 scripts/issue_refine.py push gh-issues/123/example.md
 - 表面的な読解で済ませない。コードベースの構造と実装の実態を把握してから編集する
 - Issue に書かれていない仕様を勝手に確定しない。推測は推測として明示する
 - 追記・修正は必ずローカル Markdown を正本として扱う
-- `gh-issues/{number}/*.md` が残っている場合は、ローカル継続か GitHub 再取得かを必ず確認する
+- `docs/gh-issues/{number}/*.md` が残っている場合は、ローカル継続か GitHub 再取得かを必ず確認する
 - 「注釈に対応して」と依頼された場合、注釈はユーザーがAIに文書への追記・修正を依頼するためのものとして扱う
 - 「注釈に対応して」と依頼された場合、回答は注釈を使わず本文へ統合した形で提示する
 - ユーザーが反映を明示する前に push しない
