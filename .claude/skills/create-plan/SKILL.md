@@ -5,7 +5,7 @@ description: |
   「開発計画を作成して」「実行プロンプトを生成して」「create-planを作って」「プロンプト集を作って」
   「並列開発の計画を立てて」などのリクエストで発動。
   Issue番号リストを受け取り、依存関係のWave構造を対話で決定し、
-  各Issueの plan 作成プロンプトを docs/plans/*.md に出力する。
+  各Issueの plan 作成プロンプトを docs/plans/{name}.md に出力する。
 ---
 
 # Create Plan — Phase 2 (Plan Only) Prompt Generator
@@ -17,7 +17,7 @@ GitHub Issue から Claude Code 用の「計画作成プロンプト集」を生
 
 - 各 Issue ごとに「plan を書かせるための実行プロンプト」を生成する
 - 依存関係に基づく Wave（直列/並列）を明示する
-- そのまま Claude セッションへ投入できる形で `docs/plans/*.md` にまとめる
+- そのまま Claude セッションへ投入できる形で `docs/plans/{name}.md` にまとめる
 
 ## ワークフロー
 
@@ -105,6 +105,7 @@ Issue 本文から以下を抽出して埋め込む。
 ```
 
 デフォルトは `docs/plans/{プロジェクト名}.md`。
+このとき各 Issue の個別計画書は `docs/plans/{プロジェクト名}/issues/{issue_number}-{slug}.md` に作成する前提でプロンプトを組み立てる。
 
 出力構造は [references/plan-template-for-issues.md](references/plan-template-for-issues.md) を使う。
 

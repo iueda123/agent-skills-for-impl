@@ -1,73 +1,69 @@
-# Agent Skills
+# Agent Skills for Implementation
 
-Claude Code の Skills（カスタムスラッシュコマンド）集です。
+Claude Code 向けの汎用実装スキル集です。  
+Issue の作成・修正、計画作成、実装（単一/並列）、PR 作成までの一連フローをカバーする。
 
-Issue 起票 → Issue の追記・修正 → 並列開発計画 → git worktree で並列実装 → PR 作成までを自動化するワークフローを提供します。
+## ディレクトリ構成
+
+- `skills/`: スキル定義のソース（`SKILL.md`、references、scripts）
+- `docs/gh-issues/`: Issue 編集時のローカル Markdown 置き場
+- `docs/plans/`: 計画ドキュメント置き場
+- `docs/refs/`: 参照資料
 
 ## スキル一覧
 
 | スキル | コマンド | 説明 |
 | --- | --- | --- |
-| [create-issue](./create-issue/) | `/create-issue` | 雑な要件から GitHub Issue を構造化して起票 |
-| [refine-issue](./refine-issue/) | `/refine-issue` | 既存 Issue を Markdown に書き出し、Claude が対話で編集支援した後に GitHub へ反映 |
-| [refine-issue-with-research](./refine-issue-with-research/) | `/refine-issue-with-research` | 既存 Issue を Markdown に書き出し、コードベース調査結果に基づいて目的・要件・現状・選択肢・方針を再構成して反映 |
-| [create-plan](./create-plan/) | `/create-plan` | 単体 Issue でも複数 Issue でも使える。依存関係を分析し、Wave 構造の計画作成プロンプト（Phase 2: Plan, 未実装）を生成（例: `/create-plan #5` `/create-plan #3-10`） |
-| [refine-plan](./refine-plan/) | `/refine-plan` | create-plan で生成した plan ファイルを対話しながら改善 |
-| [impl-multi](./impl-multi/) | `/impl-multi` | git worktree で隔離環境を作り並列開発 |
-| [impl-single](./impl-single/) | `/impl-single` | 単一ツリーで1タスクずつ丁寧に実装を進める |
-| [pull-request](./pull-request/) | `/pull-request` | 変更内容を分析して PR を自動作成 |
+| [create-issue](skills/create-issue/SKILL.md) | `/create-issue` | 雑な要件メモから GitHub Issue を構造化して起票 |
+| [refine-issue](skills/refine-issue/SKILL.md) | `/refine-issue` | Issue を Markdown 化し、対話で編集して GitHub に反映 |
+| [refine-issue-with-research](skills/refine-issue-with-research/SKILL.md) | `/refine-issue-with-research` | コードベース等の詳細調査を含めて Issue を再構成して反映 |
+| [create-plan](skills/create-plan/SKILL.md) | `/create-plan` | Issue 群から Plan Only の実行プロンプト集を生成 |
+| [refine-plan](skills/refine-plan/SKILL.md) | `/refine-plan` | 生成済み plan (`docs/plans/{name}.md`) を対話で改善 |
+| [impl-single](skills/impl-single/SKILL.md) | `/impl-single` | 単一作業ツリーで段階的に実装・検証 |
+| [impl-multi](skills/impl-multi/SKILL.md) | `/impl-multi` | `git gtr` を使って worktree 並列実装 |
+| [pull-request](skills/pull-request/SKILL.md) | `/pull-request` | コミット済み差分から PR 本文を作成し `gh pr create` |
 
-## ワークフロー
+## 標準フロー
 
 ```text
-要件定義
+要件整理
   ↓
-/create-issue → GitHub Issue を起票
+/create-issue
   ↓
-/refine-issue → Issue 一覧表示 → 対象選択 → 既存 md の有無確認 → 必要なら再取得して gh-issues/{number}/{slug}.md を更新
+/refine-issue または /refine-issue-with-research
   ↓
-Claude が「どのような編集を手伝いますか？」と聞き、対話しながら Markdown を編集
+/create-plan
   ↓
-区切りで「GitHub に反映しましょうか？」と確認して反映
+/refine-plan
   ↓
-反映後にローカル Markdown を削除
+/impl-single または /impl-multi
   ↓
-/create-plan → docs/plans/xxx.md（計画作成プロンプト集）
-  ↓
-プロンプトをコピペして複数の Claude Code セッションで実行
-  ↓
-/impl-multi → worktree 作成 → 実装 → /pull-request → PR 作成
+/pull-request
 ```
 
-## 典型フロー
+## 主要な出力先
 
-1. Claude Code と対話しながら要件定義を固める
-2. `/create-issue` で最初の Issue を起票する
-3. `/refine-issue` で既存 Issue 一覧を見て、修正したい Issue を選ぶ
-4. `gh-issues/{number}/*.md` が残っていれば、ローカル継続か GitHub 再取得かを決める
-5. 必要に応じて Issue を `gh-issues/{number}/{slug}.md` に書き出す、または更新する
-6. Claude が「どのような編集を手伝いますか？」と尋ね、ユーザーと数往復しながら Markdown 編集を支援する
-7. 内容がまとまったら Claude が「GitHub に反映しましょうか？」と確認し、合意後に GitHub に反映する
-8. 反映後、当該 Markdown を削除する
-9. 内容が固まった Issue 群に対して `/create-plan` を実行する
-10. 生成されたプロンプトを使って `/impl-multi` と `/pull-request` で並列実装と PR 作成を進める
+- Issue 編集用 Markdown: `docs/gh-issues/{issue_number}/{slug}.md`
+- 複数 Issue の計画プロンプト集（親）: `docs/plans/{name}.md`
+- Issue 単位の計画書（子）: `docs/plans/{name}/issues/{issue_number}-{slug}.md`
+- 子ファイルは `issues/` 配下にまとめ、同一 plan の成果物を一覧しやすくする（親子関係を明示する）
 
 ## インストール
 
-全スキルを一括インストール：
-
 ```bash
-npx skills add okazuki58/agent-skills -y
+npx skills add iueda123/agent-skills-for-impl -y
 ```
 
-個別にインストール：
-
-```bash
-npx skills add okazuki58/agent-skills --skill <skill-name> -y
-```
+このスキル集を導入したいリポジトリのルートでこのコマンドを実行すると、
+配下の `.claude/skills/` に  `.claude/skills/*/SKILL.md` のようにインストールされる。
 
 ## 前提条件
 
-- Claude Code がインストール済み
-- GitHub CLI (`gh`) がインストール・認証済み
-- git リポジトリ内で実行すること
+- Claude Code が利用可能
+- GitHub CLI (`gh`) がインストール済みかつ認証済み
+- 対象リポジトリで実行していること
+
+## 補足
+
+- `refine-issue` / `refine-issue-with-research` は `skills/*/scripts/issue_refine.py` を使って Issue の fetch/push を行います。
+- `create-plan` と `refine-plan` は「計画作成専用」です（実装は行いません）。

@@ -16,7 +16,7 @@
 ## この文書の前提
 
 - この文書は計画作成専用（未実装）
-- 各 Issue の `docs/plans/issues/*.md` を作るための実行プロンプト集
+- 各 Issue の `docs/plans/{name}/issues/*.md` を作るための実行プロンプト集
 - 実装は次フェーズで `/impl-single` または `/impl-multi` を使って行う
 
 ## 実行順序（Wave）
@@ -80,7 +80,7 @@ Wave 3: #16
 
 ## 計画完了のチェックリスト
 
-- [ ] 全Issueで `docs/plans/issues/*.md` が作成済み
+- [ ] 全Issueで `docs/plans/{name}/issues/*.md` が作成済み
 - [ ] 各計画に ToDo がある
 - [ ] 不明点が質問として洗い出されている
 - [ ] 依存関係の矛盾がない
