@@ -12,6 +12,8 @@ description: |
 既存の GitHub Issue をローカル Markdown に落とし、コードベースを深く読んだ調査結果に基づいて
 Issue の目的・要件・現状・選択肢・方針を整え直して GitHub 上の Issue を更新する。
 
+コマンドはこの `SKILL.md` があるディレクトリ（`skills/refine-issue-with-research/`）を基準に実行する。
+
 ## ワークフロー
 
 ### Step 1: 対象Issueを決める
@@ -20,7 +22,7 @@ Issue番号が指定されていればそれを使う。
 指定がなければ、まず一覧を表示する。
 
 ```bash
-python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py list
+python3 scripts/issue_refine.py list
 ```
 
 必要に応じて `--state all` や `--limit 100` を付ける。
@@ -31,7 +33,7 @@ python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py lis
 まず、対象 Issue に対応するローカル Markdown が残っていないか確認する。
 
 ```bash
-python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py local 123
+python3 scripts/issue_refine.py local 123
 ```
 
 `gh-issues/{number}/*.md` が存在する場合は、必ず次の趣旨で確認する。
@@ -47,13 +49,13 @@ python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py loc
 ローカル Markdown がない場合、または GitHub 再取得が選ばれた場合は、対象 Issue をローカルファイルへ保存する。
 
 ```bash
-python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py fetch 123
+python3 scripts/issue_refine.py fetch 123
 ```
 
 GitHub から再取得して既存 Markdown を更新する場合は `--overwrite` を使う。
 
 ```bash
-python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py fetch 123 --overwrite
+python3 scripts/issue_refine.py fetch 123 --overwrite
 ```
 
 出力先は `gh-issues/{number}/{slug}.md`。
@@ -105,7 +107,7 @@ GitHub に反映しましょうか？
 ユーザーが反映を希望したら、ローカル Markdown から title/body を読み取り、Issue を更新する。
 
 ```bash
-python3 agent-skills-main/refine-issue-with-research/scripts/issue_refine.py push gh-issues/123/example.md
+python3 scripts/issue_refine.py push gh-issues/123/example.md
 ```
 
 `gh issue edit <number> --title ... --body-file ...` を使って反映する。
